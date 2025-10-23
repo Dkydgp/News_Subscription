@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: news-subscription
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        value: sql12.freesqldatabase.com
+      - key: DB_USER
+        value: sql1234567
+      - key: DB_PASS
+        value: abcd1234
+      - key: DB_NAME
+        value: sql1234567
