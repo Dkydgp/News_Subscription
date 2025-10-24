@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subscribe - MyPA Newsletter</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Subscription</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
   <div class="container">
-    <h2>📰 Subscribe to MyPA Newsletter</h2>
-    <form action="/subscribe" method="POST">
-      <input type="email" name="email" placeholder="Enter your email" required />
+    <h1>📰 Subscribe to Daily News</h1>
+    <p>Stay informed — get top stories directly in your inbox!</p>
+
+    <form id="subscriptionForm" onsubmit="subscribe(event)">
+      <input type="email" id="email" placeholder="Enter your email address" required>
       <button type="submit">Subscribe</button>
     </form>
+
+    <p id="message"></p>
+
+    <footer>
+      <p>✨ Powered by Flask + MySQL | Made with ❤️ by <strong>Dipak</strong></p>
+    </footer>
   </div>
+
+  <script>
+    async function subscribe(e) {
+      e.preventDefault();
+
+      const emailField = document.getElementById('email');
+      const message = document.getElementById('message');
+      const email = emailField.value.trim();
+
+      if (!email) {
+        message.textContent = "⚠️ Please enter a valid email address!";
+        message.style.color = "red";
+        return;
+      }
+
+      try {
+        const response = await fetch("/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+          message.textContent = result.message;
+          message.style.color = "green";
+          emailField.value = "";
+        } else {
+          message.textContent = result.message;
+          message.style.color = "red";
+        }
+      } catch (error) {
+        console.error(error);
+        message.textContent = "❌ Failed to connect to the server.";
+        message.style.color = "red";
+      }
+    }
+  </script>
 </body>
 </html>
