@@ -4,19 +4,17 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
 
-# Load environment variables (for local use; Render will inject them automatically)
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# Database URI comes from Render environment variable (secure)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# ====== Model ======
+# ====== Database Model ======
 class Subscriber(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -47,8 +45,8 @@ def subscribe():
     print(f"✅ New subscriber saved: {email}")
     return jsonify({"message": "Subscribed successfully!"}), 200
 
-@app.before_first_request
-def create_tables():
+# ====== Initialize Database (Flask 3+ Safe) ======
+with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
