@@ -3,31 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Email Newsletter</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Subscribe - MyPA Newsletter</title>
+  <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
   <div class="container">
-    <h2>📰 Subscribe to Our Newsletter</h2>
-    <p class="tagline">Get the latest updates delivered directly to your inbox!</p>
-
-    <!-- ✅ Form with correct ID and input name -->
-    <form id="subscribeForm">
-      <input 
-        type="email" 
-        id="email" 
-        placeholder="Enter your email address" 
-        required 
-        autocomplete="off" 
-      />
+    <h2>📰 Subscribe to MyPA Newsletter</h2>
+    <form action="/subscribe" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required />
       <button type="submit">Subscribe</button>
     </form>
-
-    <!-- Status messages -->
-    <div id="message" class="message"></div>
   </div>
-
-  <!-- ✅ Connect correct script -->
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
