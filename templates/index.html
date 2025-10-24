@@ -9,11 +9,25 @@
 <body>
   <div class="container">
     <h2>📰 Subscribe to Our Newsletter</h2>
+    <p class="tagline">Get the latest updates delivered directly to your inbox!</p>
+
+    <!-- ✅ Form with correct ID and input name -->
     <form id="subscribeForm">
-      <input type="email" id="email" placeholder="Enter your email" required />
+      <input 
+        type="email" 
+        id="email" 
+        placeholder="Enter your email address" 
+        required 
+        autocomplete="off" 
+      />
       <button type="submit">Subscribe</button>
     </form>
+
+    <!-- Status messages -->
+    <div id="message" class="message"></div>
   </div>
+
+  <!-- ✅ Connect correct script -->
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
