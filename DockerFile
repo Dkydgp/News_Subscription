@@ -1,8 +1,0 @@
-# Use the official PHP + Apache image
-FROM php:8.2-apache
-
-# Copy all project files to web directory
-COPY . /var/www/html/
-
-# Expose port 80
-EXPOSE 80
